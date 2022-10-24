@@ -1,11 +1,8 @@
-import { unstable_getServerSession } from "next-auth/next"
-import { authOptions } from "./api/auth/[...nextauth]"
-import Layout from "../components/layout"
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
+import Layout from "../components/layout";
 
-import type { GetServerSidePropsContext } from "next"
-import type { Session } from "next-auth"
-
-export default function ServerSidePage({ session }: { session: Session }) {
+export default function ServerSidePage({ session }) {
   // As this page uses Server Side Rendering, the `session` will be already
   // populated on render without needing to go through a loading stage.
   return (
@@ -31,11 +28,11 @@ export default function ServerSidePage({ session }: { session: Session }) {
       </p>
       <pre>{JSON.stringify(session, null, 2)}</pre>
     </Layout>
-  )
+  );
 }
 
 // Export the `session` prop to use sessions with Server Side Rendering
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getServerSideProps(context) {
   return {
     props: {
       session: await unstable_getServerSession(
@@ -44,5 +41,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         authOptions
       ),
     },
-  }
+  };
 }
